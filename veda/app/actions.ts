@@ -7,8 +7,8 @@ export async function subscribeToNewsletter(email: string) {
   try {
     await db.run('INSERT INTO subscribers (email) VALUES (?)', email);
     return { success: true, message: 'Iscrizione avvenuta con successo!' };
-  } catch (error: any) {
-    if (error.errno === 19) { // SQLite error code for UNIQUE constraint failed
+  } catch (error: unknown) {
+    if (typeof error === 'object' && error && 'errno' in error && error.errno === 19) {
       return { success: false, message: 'Questa email è già iscritta.' };
     }
     console.error('Errore durante l\'iscrizione:', error);

@@ -1,7 +1,7 @@
 import sqlite3 from 'sqlite3'
-import { open } from 'sqlite'
+import { open, Database } from 'sqlite'
 
-let db: any = null;
+let db: Database | null = null;
 
 async function openDb() {
   if (!db) {

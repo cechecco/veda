@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronRight, Briefcase, Layout, PlusCircle, Lightbulb, Code, Shield, Zap, Send, MessageCircle, X, ArrowRight, Home, Cpu, Globe, Database, Search } from 'lucide-react'
+import { Layout, PlusCircle, Lightbulb, Code, Shield, Zap, Send, MessageCircle, ArrowRight, Home, Cpu, Globe, Search } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import {
   Breadcrumb,
@@ -10,7 +10,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import {
   Table,
   TableBody,
@@ -32,14 +32,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
 import {
   Tabs,
   TabsContent,
@@ -444,7 +436,7 @@ const menuData = {
 
 type MenuItem = {
   name: string
-  icon: any
+  icon: React.ElementType // Change 'any' to 'React.ElementType'
   description: string
   aiFeedback: string
   improvementSuggestions: string[]
@@ -486,7 +478,6 @@ export default function Component() {
   ])
   const [inputMessage, setInputMessage] = useState('')
   const [isChatOpen, setIsChatOpen] = useState(false)
-  const [isFeatureSuggestionOpen, setIsFeatureSuggestionOpen] = useState(false)
   const [newItemType, setNewItemType] = useState<string | null>(null)
 
   const handleSelect = (item: MenuItem) => {
@@ -770,7 +761,7 @@ export default function Component() {
                                 <TableHead>Must Have</TableHead>
                                 <TableHead>Should Have</TableHead>
                                 <TableHead>Could Have</TableHead>
-                                <TableHead>Won't Have</TableHead>
+                                <TableHead>Won&apos;t Have</TableHead>
                               </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -778,28 +769,28 @@ export default function Component() {
                                 <TableCell>
                                   <ul className="list-disc pl-4">
                                     {selectedItem.aiAnalysis.moscow.categorization.must.map((item, index) => (
-                                      <li key={index}>{item}</li>
+                                      <li key={index}>{item.replace("'", "&apos;")}</li>
                                     ))}
                                   </ul>
                                 </TableCell>
                                 <TableCell>
                                   <ul className="list-disc pl-4">
                                     {selectedItem.aiAnalysis.moscow.categorization.should.map((item, index) => (
-                                      <li key={index}>{item}</li>
+                                      <li key={index}>{item.replace("'", "&apos;")}</li>
                                     ))}
                                   </ul>
                                 </TableCell>
                                 <TableCell>
                                   <ul className="list-disc pl-4">
                                     {selectedItem.aiAnalysis.moscow.categorization.could.map((item, index) => (
-                                      <li key={index}>{item}</li>
+                                      <li key={index}>{item.replace("'", "&apos;")}</li>
                                     ))}
                                   </ul>
                                 </TableCell>
                                 <TableCell>
                                   <ul className="list-disc pl-4">
                                     {selectedItem.aiAnalysis.moscow.categorization.wont.map((item, index) => (
-                                      <li key={index}>{item}</li>
+                                      <li key={index}>{item.replace("'", "&apos;")}</li>
                                     ))}
                                   </ul>
                                 </TableCell>

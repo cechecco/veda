@@ -22,7 +22,7 @@ export default function Component() {
       } else {
         toast.error(result.message)
       }
-    } catch (error) {
+    } catch {
       toast.error('Si è verificato un errore. Riprova più tardi.')
     } finally {
       setIsSubmitting(false)
