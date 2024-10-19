@@ -1,0 +1,5 @@
+# ... altre regole
+
+# Ignora la cartella data e il file del database
+/data
+*.sqlite
