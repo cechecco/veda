@@ -29,12 +29,14 @@ const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     if (feature) {
-      const featureIndex = breadcrumb.findIndex(item => item.id === feature.id);
-      if (featureIndex !== -1) {
-        setBreadcrumb(prevBreadcrumb => prevBreadcrumb.slice(featureIndex, prevBreadcrumb.length - 1));
-      } else {
-        setBreadcrumb(prevBreadcrumb => [...prevBreadcrumb, feature]);
-      }
+      setBreadcrumb(prevBreadcrumb => {
+        const featureIndex = prevBreadcrumb.findIndex(item => item.id === feature.id);
+        if (featureIndex !== -1) {
+          return prevBreadcrumb.slice(0, featureIndex + 1);
+        } else {
+          return [...prevBreadcrumb, feature];
+        }
+      });
     } else {
       setBreadcrumb([])
     }
