@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react"
 import { Feature, getFeature, getFeatures } from "./actions"
 import Breadcrumb from './Breadcrumb';
 import { Card } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const DashboardPage: React.FC = () => {
 
@@ -40,25 +43,41 @@ const DashboardPage: React.FC = () => {
   return (
     <Card className="p-2 m-2">
       <Breadcrumb breadcrumb={breadcrumb} setParentId={setParentId} />
+      <div className="p-2 m-2">
+        <Accordion type="single" collapsible className="w-full [&>*]:border-b-0 [&>*]:m-0 [&>*]:p-0">
+          <AccordionItem value="description">
+            <AccordionTrigger className="p-0">
+              <p className="text-lg font-bold">{feature ? feature.name : "My company"}</p>
+            </AccordionTrigger>
+            <AccordionContent className="p-0">
+              <p className="text-muted-foreground">
+                {feature
+                  ? feature.description
+                  : "This is your company dashboard. Here you can manage your company features and users."}
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
       {
-        feature ? (
-          <div className="p-2 m-2">
-            <p className="text-lg font-bold">{feature.name}</p>
-            <p className="text-muted-foreground">{feature.description}</p>
-          </div>
-        ) : (
-          <div className="p-2 m-2">
-            <p className="text-lg font-bold">My company</p>
-            <p className="text-muted-foreground">This is your company dashboard. Here you can manage your company features and users.</p>
-          </div>
-        )
-      }
-      <p className="font -bold text-sm pl-4">Features</p>
-      {
-        subFeatures.map(feature => (
-          <Card key={feature.id} onClick={() => setParentId(feature.id)} className="p-2 m-2">
-            <p className="text-lg font-bold">{feature.name}</p>
-            <p className="text-muted-foreground">{feature.description}</p>
+        subFeatures.map((feature, i) => (
+          <Card key={feature.id} className="p-2 m-2">
+            <div className="w-full flex justify-between items-top">
+              <p className="text-muted-foreground text-xs">{feature.parentId ? "feature" : "project"} {i + 1} - @{feature.id}</p>
+            <Button variant="outline" size="icon" onClick={() => setParentId(feature.id)} className="flex-grow-0">
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+            </div>
+            <Accordion type="single" collapsible className="w-full [&>*]:border-b-0 [&>*]:m-0 [&>*]:p-0">
+                <AccordionItem value="description">
+                  <AccordionTrigger className="p-0">
+                    <p className="text-lg font-bold">{feature.name}</p>
+                  </AccordionTrigger>
+                  <AccordionContent className="p-0">
+                    <p className="text-muted-foreground">{feature.description}</p>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
           </Card>
         ))
       }
