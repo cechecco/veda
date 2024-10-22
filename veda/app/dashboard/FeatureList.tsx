@@ -20,7 +20,6 @@ const FeatureList: React.FC<FeatureListProps> = ({ features, setParentId }) => {
                 feature={feature}
                 index={index}
                 setParentId={setParentId}
-                isLast={index === features.length - 1}
               />
               {index < features.length - 1 && <Separator className="my-2" />}
             </React.Fragment>
