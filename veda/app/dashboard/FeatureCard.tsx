@@ -1,16 +1,13 @@
 import React from 'react'
 import { Feature } from './actions'
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Folder } from "lucide-react"
 
 interface FeatureCardProps {
   feature: Feature
   index: number
   setParentId: (id: string) => void
-  isLast: boolean
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ feature, setParentId, isLast }) => {
+const FeatureCard: React.FC<FeatureCardProps> = ({ feature, setParentId }) => {
   return (
       <div className="flex-grow overflow-hidden">
         <h3
