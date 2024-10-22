@@ -10,6 +10,7 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = ({ feature, setParentId }) => {
   return (
       <div className="flex-grow overflow-hidden">
+        <p className="text-xs text-muted-foreground italic">{feature.type} {feature.id}</p>
         <h3
           className="text-lg font-semibold truncate hover:underline cursor-pointer"
           onClick={() => setParentId(feature.id)}
