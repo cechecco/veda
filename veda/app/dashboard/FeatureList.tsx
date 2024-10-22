@@ -3,14 +3,19 @@ import { Feature } from './actions'
 import FeatureCard from './FeatureCard'
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { Button } from '@/components/ui/button'
+import { Plus } from 'lucide-react'
 
 interface FeatureListProps {
+  feature: Feature | null
   features: Feature[]
   setParentId: (id: string) => void
 }
 
-const FeatureList: React.FC<FeatureListProps> = ({ features, setParentId }) => {
+const FeatureList: React.FC<FeatureListProps> = ({ feature, features, setParentId }) => {
   return (
+    <>
+    <h3 className="text-muted-foreground text-xs p-2">{feature ? "features" : "Projects"}</h3>
     <Card>
       <CardContent className="p-2">
         {features.length > 0 ? (
@@ -19,8 +24,7 @@ const FeatureList: React.FC<FeatureListProps> = ({ features, setParentId }) => {
               <FeatureCard
                 feature={feature}
                 index={index}
-                setParentId={setParentId}
-              />
+                setParentId={setParentId} />
               {index < features.length - 1 && <Separator className="my-2" />}
             </React.Fragment>
           ))
@@ -29,6 +33,7 @@ const FeatureList: React.FC<FeatureListProps> = ({ features, setParentId }) => {
         )}
       </CardContent>
     </Card>
+    </>
   )
 }
 

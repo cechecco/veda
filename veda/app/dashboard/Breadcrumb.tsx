@@ -2,6 +2,7 @@ import React from 'react';
 import { Feature } from './actions';
 import { Button } from '@/components/ui/button';
 import { Home } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 interface BreadcrumbProps {
     breadcrumb: Feature[];
@@ -10,9 +11,9 @@ interface BreadcrumbProps {
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumb, setParentId }) => {
     return (
-        <div className='flex flex-wrap gap-2 items-center p-2'>
+        <Card className='flex flex-wrap gap-2 items-center p-1'>
             <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 onClick={() => setParentId(null)}
             >
@@ -23,7 +24,8 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumb, setParentId }) => {
                 <>
                     <Button
                         key={feature.id}
-                        variant="outline"
+                        variant="ghost"
+                        size="sm"
                         onClick={() => setParentId(feature.id)}
                     >
                         {feature.name}
@@ -31,7 +33,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumb, setParentId }) => {
                     {index !== breadcrumb.length - 1 && <p>/</p>}
                 </>
             ))}
-        </div>
+        </Card>
     );
 };
 

@@ -5,6 +5,7 @@ import { Feature, getFeature, getFeatures } from "./actions"
 import Breadcrumb from './Breadcrumb';
 import FeatureList from './FeatureList';
 import FeatureHeader from './FeatureHeader';
+import Chat from './Chat';
 
 const DashboardPage: React.FC = () => {
 
@@ -41,16 +42,20 @@ const DashboardPage: React.FC = () => {
   }, [feature])
 
   return (
-    <div className="p-2">
-      <Breadcrumb
-        breadcrumb={breadcrumb}
-        setParentId={setParentId}
-      />
-      <FeatureHeader feature={feature} />
-      <FeatureList
-        features={subFeatures}
-        setParentId={setParentId}
-      />
+    <div className="flex lg:flex-row flex-col gap-2">
+      <div className="w-2/3 flex flex-col gap-2">
+        <Breadcrumb
+          breadcrumb={breadcrumb}
+          setParentId={setParentId}
+        />
+        <FeatureHeader feature={feature} />
+        <FeatureList
+          feature={feature}
+          features={subFeatures}
+          setParentId={setParentId}
+        />
+      </div>
+        <Chat />
     </div>
   )
 }

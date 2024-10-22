@@ -17,9 +17,6 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ feature, setParentId }) => {
         >
           {feature.name}
         </h3>
-        <p className="text-sm text-gray-600 truncate">
-          {feature.description}
-        </p>
       </div>
   )
 }

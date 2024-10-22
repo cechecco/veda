@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Pencil, Plus } from "lucide-react";
 import { Feature } from "./actions";
+import { Card } from "@/components/ui/card";
 
 interface FeatureHeaderProps {
     feature: Feature | null;
@@ -19,40 +20,28 @@ const FeatureHeader: React.FC<FeatureHeaderProps> = ({ feature }) => {
     }, [feature]);
 
     return (
-        <div className="p-2">
-            {feature && (
+            <Card className="p-2">
+            {feature ? (
                 <p className="text-xs text-muted-foreground italic">{feature.type} {feature.id}</p>
+            ) : (
+                <p className="text-xs text-muted-foreground italic">company</p>
             )}
-            <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                    <p className="text-2xl font-bold">
-                        {feature ? feature.name : "My company"}
+                    <p className="text-2xl font-semibold">
+                        {feature ? feature.name : "ABC"}
                     </p>
                 </div>
-                <Button variant="outline" size="icon">
-                    <Plus className="h-4 w-4" />
-                </Button>
-            </div>
-            <div className="p-4">
-                <p className="text-muted-foreground text-xs">description</p>
+                <p className="text-muted-foreground text-xs px-2 p-2">description</p>
                 {feature ? (
-                    <textarea
-                        className="w-full p-2 text-sm border rounded resize-none"
-                        value={description}
-                        onChange={handleDescriptionChange}
-                        style={{ height: 'auto', overflow: 'hidden' }}
-                        ref={(textarea) => {
-                            if (textarea) {
-                                textarea.style.height = 'auto';
-                                textarea.style.height = textarea.scrollHeight + 'px';
-                            }
-                        }}
-                    />
+                    <p
+                        className="w-full text-sm px-2 pb-2"
+                    >
+                        {description}
+                    </p>
                 ) : (
-                    <p className="text-justify">This is your company dashboard. Here you can manage your company projects</p>
+                    <p className="w-full text-sm px-2 pb-2">This is your company dashboard. Here you can manage your company projects</p>
                 )}
-            </div>
-        </div>
+            </Card>
     );
 };
 
