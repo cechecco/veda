@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Pencil, Plus } from "lucide-react";
 import { Feature } from "./actions";
 import { Card } from "@/components/ui/card";
 
@@ -10,10 +8,6 @@ interface FeatureHeaderProps {
 
 const FeatureHeader: React.FC<FeatureHeaderProps> = ({ feature }) => {
     const [description, setDescription] = useState(feature?.description || "");
-
-    const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setDescription(e.target.value);
-    };
 
     useEffect(() => {
         setDescription(feature?.description || "");
