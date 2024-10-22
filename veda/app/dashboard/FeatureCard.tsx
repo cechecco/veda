@@ -1,33 +1,21 @@
 import React from 'react'
 import { Feature } from './actions'
-import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, Folder } from "lucide-react"
 
 interface FeatureCardProps {
   feature: Feature
   index: number
   setParentId: (id: string) => void
+  isLast: boolean
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ feature, index, setParentId }) => {
+const FeatureCard: React.FC<FeatureCardProps> = ({ feature, setParentId, isLast }) => {
   return (
-    <Card className="p-2 m-2">
-      <div className="w-full flex justify-between items-top">
-        <div className="w-full">
-          <p className="text-muted-foreground text-xs">
-            {feature.parentId ? "feature" : "project"} {index + 1} - @{feature.id}
-          </p>
-          <p 
-            className="text-lg font-bold cursor-pointer hover:underline" 
-            onClick={() => setParentId(feature.id)}
-          >
-            {feature.name}
-          </p>
-        </div>
+      <div className="flex-grow overflow-hidden">
+        <h3 className="text-lg font-semibold truncate hover:underline cursor-pointer" onClick={() => setParentId(feature.id)}>{feature.name}</h3>
+        <p className="text-sm text-gray-600 truncate">{feature.description}</p>
       </div>
-      <div>
-        <p className="text-muted-foreground">{feature.description}</p>
-      </div>
-    </Card>
   )
 }
 

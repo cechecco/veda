@@ -11,7 +11,7 @@ interface BreadcrumbProps {
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumb, setParentId }) => {
     return (
-        <Card className='flex flex-wrap gap-2 items-center p-2 m-2'>
+        <div className='flex flex-wrap gap-2 items-center p-2'>
             <Button variant="outline" size="icon" onClick={() => setParentId(null)}>
                 <Home className="h-4 w-4" />
             </Button>
@@ -24,7 +24,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumb, setParentId }) => {
                     {index !== breadcrumb.length - 1 && <p>/</p>}
                 </>
             ))}
-        </Card>
+        </div>
     );
 };
 
