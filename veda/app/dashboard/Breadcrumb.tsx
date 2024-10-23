@@ -21,9 +21,8 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumb, setParentId }) => {
             </Button>
             {breadcrumb.length > 0 && <p>/</p>}
             {breadcrumb.map((feature, index) => (
-                <>
+                <div key={feature.id} className='flex items-center space-x-1'>
                     <Button
-                        key={feature.id}
                         variant="ghost"
                         size="sm"
                         onClick={() => setParentId(feature.id)}
@@ -31,7 +30,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ breadcrumb, setParentId }) => {
                         {feature.name}
                     </Button>
                     {index !== breadcrumb.length - 1 && <p>/</p>}
-                </>
+                </div>
             ))}
         </Card>
     );

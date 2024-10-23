@@ -42,21 +42,25 @@ const DashboardPage: React.FC = () => {
   }, [feature])
 
   return (
-    <div className="flex lg:flex-row flex-col gap-2">
-      <div className="w-2/3 flex flex-col gap-2">
-        <Breadcrumb
-          breadcrumb={breadcrumb}
-          setParentId={setParentId}
-        />
-        <FeatureHeader feature={feature} />
-        <FeatureList
+    <>
+      <Breadcrumb
+        breadcrumb={breadcrumb}
+        setParentId={setParentId} />
+      <div className="flex lg:flex-row flex-col gap-2">
+        <div className="w-1/2 flex flex-col gap-2">
+          <FeatureHeader feature={feature} />
+          <FeatureList
+            feature={feature}
+            features={subFeatures}
+            setParentId={setParentId} />
+        </div>
+        <Chat
           feature={feature}
           features={subFeatures}
-          setParentId={setParentId}
-        />
+          setFeature={setFeature}
+          setFeatures={setSubFeatures} />
       </div>
-        <Chat />
-    </div>
+    </>
   )
 }
 
