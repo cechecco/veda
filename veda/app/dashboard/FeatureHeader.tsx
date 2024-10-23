@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Feature } from "./actions";
-import { Card } from "@/components/ui/card";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 
 interface FeatureHeaderProps {
     feature: Feature | null;
@@ -14,28 +14,24 @@ const FeatureHeader: React.FC<FeatureHeaderProps> = ({ feature }) => {
     }, [feature]);
 
     return (
-            <Card className="p-2">
-            {feature ? (
-                <p className="text-xs text-muted-foreground italic">{feature.type} {feature.id}</p>
-            ) : (
-                <p className="text-xs text-muted-foreground italic">company</p>
-            )}
-                <div className="flex items-center gap-2">
-                    <p className="text-2xl font-semibold">
-                        {feature ? feature.name : "ABC"}
-                    </p>
-                </div>
-                <p className="text-muted-foreground text-xs px-2 p-2">description</p>
-                {feature ? (
-                    <p
-                        className="w-full text-sm px-2 pb-2"
-                    >
-                        {description}
-                    </p>
-                ) : (
-                    <p className="w-full text-sm px-2 pb-2">This is your company dashboard. Here you can manage your company projects</p>
-                )}
-            </Card>
+        <Card>
+            <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium">
+                    {feature ? `${feature.type} ${feature.id}` : "Company"}
+                </CardTitle>
+                <h2 className="text-2xl font-bold">
+                    {feature ? feature.name : "ABC"}
+                </h2>
+            </CardHeader>
+            <CardContent>
+                <h3 className="text-sm font-medium mb-2">Description</h3>
+                <p className="text-sm text-muted-foreground">
+                    {feature
+                        ? description
+                        : "This is your company dashboard. Here you can manage your company projects"}
+                </p>
+            </CardContent>
+        </Card>
     );
 };
 

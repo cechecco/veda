@@ -1,27 +1,26 @@
 import React from 'react'
 import { Feature } from './actions'
-import { Checkbox } from '@radix-ui/react-checkbox'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface FeatureCardProps {
   feature: Feature
-  index: number
   setParentId: (id: string) => void
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ feature, setParentId }) => {
   return (
-      <div className="flex-grow overflow-hidden">
-        <p className="text-xs text-muted-foreground italic">{feature.type} {feature.id}</p>
-        <div className="flex items-center space-x-2">
-          <Checkbox id={`checkbox-${feature.id}`} />
-        </div>
-        <h3
-          className="text-lg font-semibold truncate hover:underline cursor-pointer"
-          onClick={() => setParentId(feature.id)}
-        >
+    <Card className="hover:bg-accent cursor-pointer" onClick={() => setParentId(feature.id)}>
+      <CardHeader className="pb-2">
+        <CardTitle className="text-xs text-muted-foreground">
+          {feature.type} {feature.id}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <h3 className="text-sm font-medium">
           {feature.name}
         </h3>
-      </div>
+      </CardContent>
+    </Card>
   )
 }
 

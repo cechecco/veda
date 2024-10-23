@@ -6,6 +6,7 @@ import Breadcrumb from './Breadcrumb';
 import FeatureList from './FeatureList';
 import FeatureHeader from './FeatureHeader';
 import Chat from './Chat';
+import AnalysisWidgets from './AnalysisWidgets';
 
 const DashboardPage: React.FC = () => {
 
@@ -41,12 +42,19 @@ const DashboardPage: React.FC = () => {
     }
   }, [feature])
 
+  // Dati di esempio per RICE analysis
+  const riceData = [
+    { feature: "Feature 1", reach: 8, impact: 7, confidence: 9, effort: 6 },
+    { feature: "Feature 2", reach: 6, impact: 8, confidence: 7, effort: 5 },
+    // Aggiungi altri dati secondo necessità
+  ];
+
   return (
     <>
       <Breadcrumb
         breadcrumb={breadcrumb}
         setParentId={setParentId} />
-      <div className="flex lg:flex-row flex-col gap-2">
+      <div className="flex lg:flex-row flex-col gap-2 items-stretch">
         <div className="w-1/2 flex flex-col gap-2">
           <FeatureHeader feature={feature} />
           <FeatureList
@@ -54,6 +62,7 @@ const DashboardPage: React.FC = () => {
             features={subFeatures}
             setParentId={setParentId} />
         </div>
+        <AnalysisWidgets riceData={riceData} />
         <Chat
           feature={feature}
           features={subFeatures}

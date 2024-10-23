@@ -82,14 +82,14 @@ const Chat: React.FC<ChatProps> = ({ feature, features, setFeature, setFeatures 
   return (
     <Draggable handle=".chat-handle" nodeRef={nodeRef}>
       <div ref={nodeRef} className="absolute bottom-4 right-4 w-80 h-60 flex flex-col border rounded-lg shadow-lg bg-white overflow-hidden">
-        <div className="chat-handle bg-primary text-white p-2 cursor-move">
+        <div className="chat-handle bg-primary text-white p-2 cursor-move font-medium">
           Chat
         </div>
-        <div className="flex-grow overflow-auto p-2">
+        <div className="flex-grow overflow-auto p-2 space-y-2">
           {messages.map(message => (
             <div
               key={message.id}
-              className={`mb-2 p-2 rounded ${
+              className={`p-2 rounded text-sm ${
                 message.sender === 'user' ? 'bg-primary/10 text-right' : 'bg-muted'
               }`}
             >
@@ -98,14 +98,14 @@ const Chat: React.FC<ChatProps> = ({ feature, features, setFeature, setFeatures 
           ))}
         </div>
         <div className="p-2 pt-0">
-          <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }} className="flex flex-col gap-1">
+          <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }} className="flex flex-col gap-2">
             <Textarea
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              className="resize-none"
+              className="resize-none text-sm"
               rows={2}
             />
-            <Button type="submit" disabled={isLoading} className="w-full">
+            <Button type="submit" disabled={isLoading} className="w-full text-sm">
               {isLoading ? 'Sending...' : 'Send'}
             </Button>
           </form>
