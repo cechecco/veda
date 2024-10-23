@@ -26,13 +26,18 @@ const FeatureHeader: React.FC<FeatureHeaderProps> = ({ feature }) => {
                     {feature ? feature.name : "ABC"}
                 </MainTitle>
             </CardHeader>
-            <CardContent>
-                <Subtitle>Description</Subtitle>
-                <BodyText>
-                    {feature
-                        ? description
-                        : "This is your company dashboard. Here you can manage your company projects"}
-                </BodyText>
+            <CardContent className="flex flex-col gap-2">
+                
+                {!feature && (
+                    <MetaText>
+                        This is your company dashboard. Here you can manage your company projects
+                    </MetaText>
+                )}
+                {feature && (
+                    <><MetaText>Description</MetaText><BodyText>
+                        {description}
+                    </BodyText></>
+                )}
             </CardContent>
         </Card>
     );
