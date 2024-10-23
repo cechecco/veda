@@ -44,6 +44,8 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) 
     const [feedback, setFeedback] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    const isDataAvailable = riceScores.features.length > 0 && moscowAnalysis.features.length > 0 && feedback !== null;
+
     const handleAnalyze = async () => {
         setIsLoading(true);
         try {
@@ -79,7 +81,7 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) 
                 </CardContent>
             </Card>
 
-            <Card className='bg-primary text-primary-foreground'>
+            <Card className={`bg-primary text-primary-foreground ${!isDataAvailable ? 'opacity-50 pointer-events-none' : ''}`}>
                 <CardHeader>
                     <CardTitle>General Feedback</CardTitle>
                 </CardHeader>
@@ -99,7 +101,7 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) 
                 </CardContent>
             </Card>
 
-            <Card>
+            <Card className={!isDataAvailable ? 'opacity-50 pointer-events-none' : ''}>
                 <CardHeader className="pb-3">
                     <CardTitle>
                         <MainTitle>All Features</MainTitle>
@@ -137,7 +139,7 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) 
                 </CardContent>
             </Card>
 
-            <Card>
+            <Card className={!isDataAvailable ? 'opacity-50 pointer-events-none' : ''}>
                 <CardHeader className="pb-3">
                     <CardTitle>
                         <MainTitle>MoSCoW Analysis</MainTitle>
