@@ -28,7 +28,7 @@ interface GeneralFeedback {
   list: string[];
 }
 
-export async function calculateRICE(feature: Feature | null, features: Feature[]) {
+export async function calculateRICE(_feature: Feature | null, features: Feature[]) {
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -74,7 +74,7 @@ export async function calculateRICE(feature: Feature | null, features: Feature[]
   return riceScores;
 }
 
-export async function performMoSCoWAnalysis(feature: Feature | null, features: Feature[]): Promise<MoSCoWAnalysisResult> {
+export async function performMoSCoWAnalysis(_feature: Feature | null, features: Feature[]): Promise<MoSCoWAnalysisResult> {
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -117,7 +117,7 @@ export async function performMoSCoWAnalysis(feature: Feature | null, features: F
   return moscowCategories;
 }
 
-export async function getGeneralFeedback(feature: Feature | null, features: Feature[], riceScores: RICEScore[], moscowCategories: MoSCoWCategory[]): Promise<GeneralFeedback> {
+export async function getGeneralFeedback(_feature: Feature | null, features: Feature[], riceScores: RICEScore[], moscowCategories: MoSCoWCategory[]): Promise<GeneralFeedback> {
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -168,6 +168,7 @@ export interface Analysis {
   feedback: GeneralFeedback
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getAnalysis = async (feature: Feature | null): Promise<Analysis> => {
   return {
     riceScores: {
