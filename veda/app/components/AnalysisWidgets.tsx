@@ -71,7 +71,7 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features, an
         setFeedback(analysis.feedback);
     }, [analysis]);
 
-    const isDataAvailable = riceScores.features.length > 0 && moscowAnalysis.features.length > 0 && feedback !== null;
+    const isDataAvailable = riceScores.features.length > 0 || moscowAnalysis.features.length > 0 || feedback !== null;
 
     const handleAnalyze = async () => {
         setIsLoading(true);
@@ -91,7 +91,6 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features, an
 
     return (
         <div className="space-y-2">
-            <pre>{JSON.stringify(analysis, null, 2)}</pre>
             <Card>
                 <CardHeader>
                     <CardTitle className="flex justify-between">
