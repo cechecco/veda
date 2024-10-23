@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Feature } from "./actions";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
+import { MainTitle, Subtitle, BodyText, MetaText } from "../components/typography";
 
 interface FeatureHeaderProps {
     feature: Feature | null;
@@ -16,20 +17,22 @@ const FeatureHeader: React.FC<FeatureHeaderProps> = ({ feature }) => {
     return (
         <Card>
             <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium">
-                    {feature ? `${feature.type} ${feature.id}` : "Company"}
+                <CardTitle>
+                    <MetaText>
+                        {feature ? `${feature.type} ${feature.id}` : "Company"}
+                    </MetaText>
                 </CardTitle>
-                <h2 className="text-2xl font-bold">
+                <MainTitle>
                     {feature ? feature.name : "ABC"}
-                </h2>
+                </MainTitle>
             </CardHeader>
             <CardContent>
-                <h3 className="text-sm font-medium mb-2">Description</h3>
-                <p className="text-sm text-muted-foreground">
+                <Subtitle>Description</Subtitle>
+                <BodyText>
                     {feature
                         ? description
                         : "This is your company dashboard. Here you can manage your company projects"}
-                </p>
+                </BodyText>
             </CardContent>
         </Card>
     );

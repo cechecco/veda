@@ -2,6 +2,7 @@ import React from 'react'
 import { Feature } from './actions'
 import FeatureCard from './FeatureCard'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { MetaText, BodyText } from "../components/typography"
 
 interface FeatureListProps {
   feature: Feature | null
@@ -13,8 +14,8 @@ const FeatureList: React.FC<FeatureListProps> = ({ feature, features, setParentI
   return (
     <Card>
       <CardHeader className="pb-3">
-        <CardTitle className="text-sm font-medium">
-          {feature ? "Features" : "Projects"}
+        <CardTitle>
+          <MetaText>{feature ? "Features" : "Projects"}</MetaText>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -29,7 +30,7 @@ const FeatureList: React.FC<FeatureListProps> = ({ feature, features, setParentI
             ))}
           </div>
         ) : (
-          <p className="text-sm text-muted-foreground">This item has no sub-features or children.</p>
+          <BodyText>This item has no sub-features or children.</BodyText>
         )}
       </CardContent>
     </Card>

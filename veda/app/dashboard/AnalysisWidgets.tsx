@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { MainTitle, Subtitle, BodyText } from "../components/typography"
 
 interface RiceAnalysisData {
   feature: string;
@@ -27,32 +28,34 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ riceData }) => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-lg font-medium">RICE Frame Prioritization Analysis</CardTitle>
+          <CardTitle>
+            <MainTitle>RICE Frame Prioritization Analysis</MainTitle>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Feature</TableHead>
-                <TableHead>Reach</TableHead>
-                <TableHead>Impact</TableHead>
-                <TableHead>Confidence</TableHead>
-                <TableHead>Effort</TableHead>
-                <TableHead>RICE Score</TableHead>
+                <TableHead><Subtitle>Feature</Subtitle></TableHead>
+                <TableHead><Subtitle>Reach</Subtitle></TableHead>
+                <TableHead><Subtitle>Impact</Subtitle></TableHead>
+                <TableHead><Subtitle>Confidence</Subtitle></TableHead>
+                <TableHead><Subtitle>Effort</Subtitle></TableHead>
+                <TableHead><Subtitle>RICE Score</Subtitle></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {riceData.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell>{item.feature}</TableCell>
-                  <TableCell>{item.reach}</TableCell>
-                  <TableCell>{item.impact}</TableCell>
-                  <TableCell>{item.confidence}</TableCell>
-                  <TableCell>{item.effort}</TableCell>
-                  <TableCell>{calculateRiceScore(item).toFixed(2)}</TableCell>
+                  <TableCell><BodyText>{item.feature}</BodyText></TableCell>
+                  <TableCell><BodyText>{item.reach}</BodyText></TableCell>
+                  <TableCell><BodyText>{item.impact}</BodyText></TableCell>
+                  <TableCell><BodyText>{item.confidence}</BodyText></TableCell>
+                  <TableCell><BodyText>{item.effort}</BodyText></TableCell>
+                  <TableCell><BodyText>{calculateRiceScore(item).toFixed(2)}</BodyText></TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -62,14 +65,16 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ riceData }) => {
       
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-lg font-medium">MoSCoW Analysis</CardTitle>
+          <CardTitle>
+            <MainTitle>MoSCoW Analysis</MainTitle>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-2">
             {["Must Have", "Should Have", "Could Have", "Won't Have"].map((item: string) => (
               <Card key={item}>
-                <CardContent className="p-2 text-center text-sm">
-                  {item}
+                <CardContent className="p-2 text-center">
+                  <Subtitle>{item}</Subtitle>
                 </CardContent>
               </Card>
             ))}

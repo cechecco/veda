@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { getChatGPTResponse } from '../actions/chatActions';
 import { Feature } from './actions';
 import Draggable from 'react-draggable';
+import { Subtitle, BodyText } from "../components/typography"
 
 interface ChatMessage {
   id: string;
@@ -82,18 +83,18 @@ const Chat: React.FC<ChatProps> = ({ feature, features, setFeature, setFeatures 
   return (
     <Draggable handle=".chat-handle" nodeRef={nodeRef}>
       <div ref={nodeRef} className="absolute bottom-4 right-4 w-80 h-60 flex flex-col border rounded-lg shadow-lg bg-white overflow-hidden">
-        <div className="chat-handle bg-primary text-white p-2 cursor-move font-medium">
-          Chat
+        <div className="chat-handle bg-primary text-white p-2 cursor-move">
+          <Subtitle>Chat</Subtitle>
         </div>
         <div className="flex-grow overflow-auto p-2 space-y-2">
           {messages.map(message => (
             <div
               key={message.id}
-              className={`p-2 rounded text-sm ${
+              className={`p-2 rounded ${
                 message.sender === 'user' ? 'bg-primary/10 text-right' : 'bg-muted'
               }`}
             >
-              {message.text}
+              <BodyText>{message.text}</BodyText>
             </div>
           ))}
         </div>
@@ -102,11 +103,11 @@ const Chat: React.FC<ChatProps> = ({ feature, features, setFeature, setFeatures 
             <Textarea
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              className="resize-none text-sm"
+              className="resize-none"
               rows={2}
             />
-            <Button type="submit" disabled={isLoading} className="w-full text-sm">
-              {isLoading ? 'Sending...' : 'Send'}
+            <Button type="submit" disabled={isLoading} className="w-full">
+              <BodyText>{isLoading ? 'Sending...' : 'Send'}</BodyText>
             </Button>
           </form>
         </div>
