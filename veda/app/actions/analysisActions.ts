@@ -1,6 +1,6 @@
 'use server'
 
-import { Feature } from '../dashboard/actions';
+import { Feature } from './actions';
 interface RICEScore {
   id: string;
   reach: number;
@@ -17,6 +17,11 @@ interface MoSCoWCategory {
 
 interface MoSCoWAnalysisResult {
   features: MoSCoWCategory[];
+}
+
+interface GeneralFeedback {
+  feedback: string;
+  list: string[];
 }
 
 export async function calculateRICE(feature: Feature | null, features: Feature[]) {
@@ -85,7 +90,7 @@ export async function performMoSCoWAnalysis(feature: Feature | null, features: F
   return moscowCategories;
 }
 
-export async function getGeneralFeedback(feature: Feature | null, features: Feature[], riceScores: RICEScore[], moscowCategories: MoSCoWCategory[]): Promise<{ feedback: string, list: string[] }> {
+export async function getGeneralFeedback(feature: Feature | null, features: Feature[], riceScores: RICEScore[], moscowCategories: MoSCoWCategory[]): Promise<GeneralFeedback> {
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {

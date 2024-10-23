@@ -4,9 +4,9 @@ import React, { useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from '@/components/ui/textarea';
 import { getChatGPTResponse } from '../actions/chatActions';
-import { Feature } from './actions';
+import { Feature } from '../actions/actions';
 import Draggable from 'react-draggable';
-import { Subtitle, BodyText } from "../components/typography"
+import { Subtitle, BodyText } from "./typography"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { ChatBubbleIcon, MinusIcon } from '@radix-ui/react-icons';
 import { GripVerticalIcon } from 'lucide-react';

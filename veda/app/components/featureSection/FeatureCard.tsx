@@ -1,7 +1,7 @@
 import React from 'react'
-import { Feature } from './actions'
+import { Feature } from '../../actions/actions'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MetaText, MainTitle, BodyText } from "../components/typography"
+import { MetaText, MainTitle, BodyText } from "../typography"
 
 interface FeatureCardProps {
   feature: Feature

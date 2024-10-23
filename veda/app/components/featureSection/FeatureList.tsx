@@ -1,8 +1,8 @@
 import React from 'react'
-import { Feature } from './actions'
+import { Feature } from '../../actions/actions'
 import FeatureCard from './FeatureCard'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MetaText, BodyText } from "../components/typography"
+import { MetaText, BodyText } from "../typography"
 
 interface FeatureListProps {
   feature: Feature | null

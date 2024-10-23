@@ -8,7 +8,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { MainTitle, Subtitle, BodyText, MetaText } from "../components/typography"
+import { MainTitle, Subtitle, BodyText, MetaText } from "./typography"
 import { Button } from '@/components/ui/button';
 import { calculateRICE, performMoSCoWAnalysis, getGeneralFeedback } from '../actions/analysisActions';
 
@@ -38,10 +38,24 @@ interface RICEScores {
     features: RICEScore[];
 }
 
+interface MoSCoWCategory {
+  id: string;
+  category: "Must Have" | "Should Have" | "Could Have" | "Won't Have";
+}
+
+interface MoSCoWAnalysisResult {
+  features: MoSCoWCategory[];
+}
+
+interface GeneralFeedback {
+    feedback: string;
+    list: string[];
+  }
+
 const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) => {
     const [riceScores, setRiceScores] = useState<RICEScores>({ features: [] });
-    const [moscowAnalysis, setMoscowAnalysis] = useState<{ features: MoSCoWCategory[] }>({ features: [] });
-    const [feedback, setFeedback] = useState<string | null>(null);
+    const [moscowAnalysis, setMoscowAnalysis] = useState<MoSCoWAnalysisResult>({ features: [] });
+    const [feedback, setFeedback] = useState<GeneralFeedback>({ feedback: '', list: [] });
     const [isLoading, setIsLoading] = useState(false);
 
     const isDataAvailable = riceScores.features.length > 0 && moscowAnalysis.features.length > 0 && feedback !== null;

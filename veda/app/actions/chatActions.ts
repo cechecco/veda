@@ -1,7 +1,7 @@
 'use server'
 
 import OpenAI from 'openai';
-import { Feature } from '../dashboard/actions';
+import { Feature } from './actions';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
