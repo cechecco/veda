@@ -18,7 +18,26 @@ interface ChatError {
 
 export async function getChatGPTResponse(message: string, context: ChatContext): Promise<ChatContext | ChatError> {
   try {
-    const systemMessage = `You are an AI assistant for a feature management system. Your task is to modify the current feature and its sub-features based on the user's request. Only return the modified objects in JSON format. Current context: ${JSON.stringify(context)}`;
+    const systemMessage = `You are an AI assistant for a feature management system. Your task is to modify the current feature and its sub-features based on the user's request. The user may also request the creation of one or more new features. In this case, generate objects with random UUIDs for the new features. Only return the modified or newly created objects in JSON format. The JSON should follow this structure:
+    {
+      "feature": {
+        "id": string,
+        "name": string,
+        "description": string,
+        "parentId": string | null,
+        "type": "project" | "feature"
+      },
+      "features": [
+        {
+          "id": string,
+          "name": string,
+          "description": string,
+          "parentId": string | null,
+          "type": "project" | "feature"
+        }
+      ]
+    }
+    Current context: ${JSON.stringify(context)}`;
 
     const completion = await openai.chat.completions.create({
       messages: [

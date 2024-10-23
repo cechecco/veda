@@ -50,12 +50,18 @@ const Chat: React.FC<ChatProps> = ({ feature, features, setFeature, setFeatures 
         }
 
         if (Array.isArray(aiResponse.features) && aiResponse.features.length > 0) {
-            setFeatures(prevFeatures =>
-                prevFeatures.map(f => {
+            setFeatures(prevFeatures => {
+                const updatedFeatures = prevFeatures.map(f => {
                     const updatedFeature = aiResponse.features.find(af => af.id === f.id);
                     return updatedFeature ? updatedFeature : f;
-                })
-            );
+                });
+                
+                const newFeatures = aiResponse.features.filter(af => 
+                    !prevFeatures.some(f => f.id === af.id)
+                );
+                
+                return [...updatedFeatures, ...newFeatures];
+            });
         }
 
         const aiMessage: ChatMessage = {
