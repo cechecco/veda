@@ -40,18 +40,16 @@ interface RICEScores {
 
 const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) => {
     const [riceScores, setRiceScores] = useState<RICEScores>({ features: [] });
-    const [moscowAnalysis, setMoscowAnalysis] = useState<Record<string, boolean> | null>(null);
+    const [moscowAnalysis, setMoscowAnalysis] = useState<{ features: MoSCoWCategory[] }>({ features: [] });
     const [feedback, setFeedback] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleAnalyze = async () => {
         setIsLoading(true);
         try {
-            const [riceResult, moscowResult, feedbackResult] = await Promise.all([
-                calculateRICE(feature, features),
-                performMoSCoWAnalysis(feature, features),
-                getGeneralFeedback(feature, features)
-            ]);
+            const riceResult = await calculateRICE(feature, features);
+            const moscowResult = await performMoSCoWAnalysis(feature, features);
+            const feedbackResult = await getGeneralFeedback(feature, features, riceResult.features, moscowResult.features);
             setRiceScores(riceResult);
             setMoscowAnalysis(moscowResult);
             setFeedback(feedbackResult);
@@ -86,7 +84,18 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) 
                     <CardTitle>General Feedback</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    {feedback && <p className="text-base italic">{feedback}</p>}
+                    {feedback && (
+                        <>
+                            <p className="text-base italic mb-4">{feedback.feedback}</p>
+                            <ol className="list-decimal list-inside">
+                                {feedback.list.map((featureId, index) => (
+                                    <li key={index} className="mb-2">
+                                        {features.find(f => f.id === featureId)?.name || featureId}
+                                    </li>
+                                ))}
+                            </ol>
+                        </>
+                    )}
                 </CardContent>
             </Card>
 
@@ -110,6 +119,7 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) 
                         </TableHeader>
                         <TableBody>
                             {features.map((item) => {
+                                console.log(riceScores);
                                 const riceScore = riceScores.features.find(score => score.id === item.id);
                                 return (
                                     <TableRow key={item.id}>
@@ -135,13 +145,22 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) 
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-2 gap-2">
-                        {["Must Have", "Should Have", "Could Have", "Won't Have"].map((item: string) => (
-                            <Card key={item}>
-                                <CardContent className="p-2 text-center">
-                                    <Subtitle>{item}</Subtitle>
-                                    {moscowAnalysis && (
-                                        <BodyText>{moscowAnalysis[item] ? 'Yes' : 'No'}</BodyText>
-                                    )}
+                        {["Must Have", "Should Have", "Could Have", "Won't Have"].map((category) => (
+                            <Card key={category}>
+                                <CardContent className="p-2">
+                                    <Subtitle>{category}</Subtitle>
+                                    <ul className="list-disc pl-4">
+                                        {moscowAnalysis.features
+                                            .filter(item => item.category === category)
+                                            .map(item => (
+                                                <li key={item.id}>
+                                                    <BodyText>
+                                                        {features.find(f => f.id === item.id)?.name || item.id}
+                                                    </BodyText>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
                                 </CardContent>
                             </Card>
                         ))}
