@@ -1,24 +1,16 @@
 import React from 'react'
 import { Feature } from '../../actions/actions'
 import FeatureCard from './FeatureCard'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MetaText, BodyText } from "../typography"
+import { BodyText } from "../typography"
 
 interface FeatureListProps {
-  feature: Feature | null
   features: Feature[]
   setParentId: (id: string) => void
 }
 
-const FeatureList: React.FC<FeatureListProps> = ({ feature, features, setParentId }) => {
+const FeatureList: React.FC<FeatureListProps> = ({ features, setParentId }) => {
   return (
-    <Card>
-      <CardHeader className="pb-3">
-        <CardTitle>
-          <MetaText>{feature ? "Features" : "Projects"}</MetaText>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
+    <div className='ml-10'>
         {features.length > 0 ? (
           <div className="space-y-2">
             {features.map((feature) => (
@@ -32,8 +24,7 @@ const FeatureList: React.FC<FeatureListProps> = ({ feature, features, setParentI
         ) : (
           <BodyText>This item has no sub-features or children.</BodyText>
         )}
-      </CardContent>
-    </Card>
+    </div>
   )
 }
 

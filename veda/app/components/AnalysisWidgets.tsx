@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+"use client"
+
+import React, { useEffect, useState } from 'react';
 import {
     Table,
     TableBody,
@@ -23,6 +25,11 @@ interface Feature {
 interface AnalysisWidgetsProps {
     feature: Feature | null;
     features: Feature[];
+    analysis: {
+        riceScores: RICEScores;
+        moscowAnalysis: MoSCoWAnalysisResult;
+        feedback: GeneralFeedback;
+    };
 }
 
 interface RICEScore {
@@ -52,11 +59,17 @@ interface GeneralFeedback {
     list: string[];
   }
 
-const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) => {
-    const [riceScores, setRiceScores] = useState<RICEScores>({ features: [] });
-    const [moscowAnalysis, setMoscowAnalysis] = useState<MoSCoWAnalysisResult>({ features: [] });
-    const [feedback, setFeedback] = useState<GeneralFeedback>({ feedback: '', list: [] });
+const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features, analysis }) => {
+    const [riceScores, setRiceScores] = useState<RICEScores>(analysis.riceScores);
+    const [moscowAnalysis, setMoscowAnalysis] = useState<MoSCoWAnalysisResult>(analysis.moscowAnalysis);
+    const [feedback, setFeedback] = useState<GeneralFeedback>(analysis.feedback);
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        setRiceScores(analysis.riceScores);
+        setMoscowAnalysis(analysis.moscowAnalysis);
+        setFeedback(analysis.feedback);
+    }, [analysis]);
 
     const isDataAvailable = riceScores.features.length > 0 && moscowAnalysis.features.length > 0 && feedback !== null;
 
@@ -78,6 +91,7 @@ const AnalysisWidgets: React.FC<AnalysisWidgetsProps> = ({ feature, features }) 
 
     return (
         <div className="space-y-2">
+            <pre>{JSON.stringify(analysis, null, 2)}</pre>
             <Card>
                 <CardHeader>
                     <CardTitle className="flex justify-between">

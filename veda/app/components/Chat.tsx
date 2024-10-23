@@ -6,10 +6,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { getChatGPTResponse } from '../actions/chatActions';
 import { Feature } from '../actions/actions';
 import Draggable from 'react-draggable';
-import { Subtitle, BodyText } from "./typography"
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
-import { ChatBubbleIcon, MinusIcon } from '@radix-ui/react-icons';
-import { GripVerticalIcon } from 'lucide-react';
+import { BodyText } from "./typography"
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { ChatBubbleIcon } from '@radix-ui/react-icons';
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 
 interface ChatMessage {
     id: string;
@@ -86,61 +90,46 @@ const Chat: React.FC<ChatProps> = ({ feature, features, setFeature, setFeatures 
 
     return (
         <Draggable handle=".chat-handle" nodeRef={nodeRef}>
-            <div ref={nodeRef} className="absolute bottom-4 right-4">
-                {!isOpen ? (
-                    <div className="chat-handle cursor-move p-1 bg-primary rounded-full flex items-center">
-                        <div className="flex items-center justify-center mr-1">
-                            <GripVerticalIcon className="h-4 w-4 text-primary-foreground cursor-move" />
-                        </div>
-                        <Button
-                            onClick={() => setIsOpen(true)}
-                            className="rounded-full p-2 ml-auto"
-                            variant="outline"
-                        >
-                            <ChatBubbleIcon className="h-6 w-6" />
-                        </Button>
-                    </div>
-                ) : (
-                    <Card className="w-80 h-60 flex flex-col overflow-hidden">
-                        <CardHeader className="chat-handle bg-primary text-white p-2 cursor-move items-center">
-                            <CardTitle className="flex justify-between items-center w-full">
-                                <Subtitle>Chat</Subtitle>
-                                <Button
-                                onClick={() => setIsOpen(false)}
-                                variant="ghost"
+            <div ref={nodeRef}>
+                <Popover open={isOpen} onOpenChange={setIsOpen}>
+                    <PopoverTrigger asChild>
+                            <Button
+                                className="rounded-full bg-primary text-primary-foreground"
+                                variant="outline"
                                 size="icon"
-                                className="text-white hover:bg-primary-dark"
                             >
-                                <MinusIcon className="h-4 w-4" />
+                                <ChatBubbleIcon className="h-4 w-4" />
                             </Button>
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="flex-grow overflow-auto p-2 space-y-2">
-                            {messages.map(message => (
-                                <div
-                                    key={message.id}
-                                    className={`p-2 rounded ${message.sender === 'user' ? 'bg-primary/10 text-right' : 'bg-muted'
-                                        }`}
-                                >
-                                    <BodyText>{message.text}</BodyText>
-                                </div>
-                            ))}
-                        </CardContent>
-                        <CardFooter className="p-2 pt-0">
-                            <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }} className="flex flex-col gap-2 w-full">
-                                <Textarea
-                                    value={inputMessage}
-                                    onChange={(e) => setInputMessage(e.target.value)}
-                                    className="resize-none"
-                                    rows={2}
-                                />
-                                <Button type="submit" disabled={isLoading} className="w-full">
-                                    <BodyText>{isLoading ? 'Sending...' : 'Send'}</BodyText>
-                                </Button>
-                            </form>
-                        </CardFooter>
-                    </Card>
-                )}
+                    </PopoverTrigger>
+                    <PopoverContent className="w-80">
+                        <Card className="w-full h-[400px] flex flex-col overflow-hidden">
+                            <CardContent className="flex-grow overflow-auto p-2 space-y-2">
+                                {messages.map(message => (
+                                    <div
+                                        key={message.id}
+                                        className={`p-2 rounded ${message.sender === 'user' ? 'bg-primary/10 text-right' : 'bg-muted'
+                                            }`}
+                                    >
+                                        <BodyText>{message.text}</BodyText>
+                                    </div>
+                                ))}
+                            </CardContent>
+                            <CardFooter className="p-2 pt-0">
+                                <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }} className="flex flex-col gap-2 w-full">
+                                    <Textarea
+                                        value={inputMessage}
+                                        onChange={(e) => setInputMessage(e.target.value)}
+                                        className="resize-none"
+                                        rows={2}
+                                    />
+                                    <Button type="submit" disabled={isLoading} className="w-full">
+                                        <BodyText>{isLoading ? 'Sending...' : 'Send'}</BodyText>
+                                    </Button>
+                                </form>
+                            </CardFooter>
+                        </Card>
+                    </PopoverContent>
+                </Popover>
             </div>
         </Draggable>
     );

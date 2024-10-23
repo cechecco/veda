@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Feature } from "../../actions/actions";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
-import { MainTitle, Subtitle, BodyText, MetaText } from "../typography";
+import { MainTitle, BodyText, MetaText } from "../typography";
 
 interface FeatureHeaderProps {
     feature: Feature | null;

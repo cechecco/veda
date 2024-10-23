@@ -2,6 +2,7 @@ import React from 'react';
 import FeatureHeader from './FeatureHeader';
 import FeatureList from './FeatureList';
 import { Feature } from '../../actions/actions';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
 interface FeatureSectionProps {
   feature: Feature | null;
@@ -11,14 +12,17 @@ interface FeatureSectionProps {
 
 const FeatureSection: React.FC<FeatureSectionProps> = ({ feature, subFeatures, setParentId }) => {
   return (
-    <div className="flex flex-col gap-2">
+    <Card className='bg-primary'>
+      <CardHeader>
       <FeatureHeader feature={feature} />
-      <FeatureList
-        feature={feature}
-        features={subFeatures}
-        setParentId={setParentId}
-      />
-    </div>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-2">
+        <FeatureList
+          features={subFeatures}
+          setParentId={setParentId}
+        />
+      </CardContent>
+    </Card>
   );
 };
 
